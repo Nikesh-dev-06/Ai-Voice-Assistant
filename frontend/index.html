@@ -2,19 +2,123 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI Voice Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MYRA - AI Voice Assistant</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Load modern google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="theme-cyberpunk">
 
-  <div class="container">
-    <div class="bot-face">🤖</div>
-    <h2>Talk to your AI Assistant</h2>
+  <div class="glass-app">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="bot-status-indicator" id="statusDot"></span>
+        <h1 id="headerBotName">MYRA</h1>
+        <span class="badge">AI Machan</span>
+      </div>
+      <button id="settingsToggleBtn" class="icon-btn" title="Open Settings">⚙️</button>
+    </header>
 
-    <button id="micBtn">🎙️ Speak</button>
+    <!-- Main visualizer & status area -->
+    <div class="visualizer-container">
+      <canvas id="visualizerCanvas"></canvas>
+      <div class="status-overlay">
+        <div class="bot-face" id="botFace">🤖</div>
+        <p class="status-text" id="statusText">Ready to talk</p>
+      </div>
+    </div>
 
-    <p id="userText"></p>
-    <p id="botText"></p>
+    <!-- Chat Logs Area -->
+    <div class="chat-logs" id="chatLogs">
+      <div class="message bot-msg">
+        <div class="msg-bubble">
+          Enna machi! Naan thaan un AI assistant <strong class="bot-label">MYRA</strong>. Edhavhu pesalam da! 🚀
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls Row -->
+    <footer class="app-controls">
+      <button id="muteBtn" class="control-btn" title="Mute/Unmute Voice">🔊</button>
+      
+      <button id="micBtn" class="mic-glow-btn" title="Click to Speak">
+        <span class="mic-icon">🎙️</span>
+      </button>
+
+      <form id="textForm" class="text-input-form">
+        <input type="text" id="textQuery" placeholder="Type a command or speak..." autocomplete="off">
+        <button type="submit" id="sendBtn">📤</button>
+      </form>
+    </footer>
+  </div>
+
+  <!-- Settings Modal (Glassmorphic Drawer/Overlay) -->
+  <div class="settings-modal" id="settingsModal">
+    <div class="settings-overlay-bg" id="settingsCloseBg"></div>
+    <div class="settings-card">
+      <div class="settings-header">
+        <h2>⚙️ Configuration</h2>
+        <button id="closeSettingsBtn" class="close-btn">&times;</button>
+      </div>
+
+      <div class="settings-body">
+        <div class="settings-group">
+          <label for="usernameInput">User Name</label>
+          <input type="text" id="usernameInput" placeholder="Nikesh">
+        </div>
+
+        <div class="settings-group">
+          <label for="botnameInput">Assistant Name</label>
+          <input type="text" id="botnameInput" placeholder="MYRA">
+        </div>
+
+        <div class="settings-group">
+          <label for="toneInput">Assistant Tone</label>
+          <select id="toneInput">
+            <option value="friendly">Friendly (Tanglish 😄)</option>
+            <option value="sarcastic">Sarcastic (Snarky 😏)</option>
+            <option value="professional">Professional (English 💼)</option>
+          </select>
+        </div>
+
+        <div class="settings-group">
+          <label for="voiceGenderInput">Voice Preference</label>
+          <select id="voiceGenderInput">
+            <option value="all">Show All System Voices</option>
+            <option value="female">Prefer Female Voices</option>
+            <option value="male">Prefer Male Voices</option>
+          </select>
+        </div>
+
+        <div class="settings-group">
+          <label for="voiceSelect">Speech Synthesis Voice</label>
+          <select id="voiceSelect">
+            <!-- Dynamically populated by JS -->
+          </select>
+        </div>
+
+        <div class="settings-group">
+          <label>Voice Commands List</label>
+          <div class="commands-help">
+            <ul>
+              <li><code>"time"</code> / <code>"date"</code></li>
+              <li><code>"tell me a joke"</code> / <code>"fact"</code></li>
+              <li><code>"open youtube"</code> / <code>"google"</code> / <code>"github"</code></li>
+              <li><code>"search for [query]"</code></li>
+              <li><code>"change theme to neon / emerald / rose"</code></li>
+              <li><code>"change my name to [name]"</code></li>
+              <li><code>"clear chat"</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-footer">
+        <button id="saveSettingsBtn" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
